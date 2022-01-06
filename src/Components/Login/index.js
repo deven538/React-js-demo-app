@@ -1,6 +1,5 @@
 import { Component } from "react";
 import Cookies from "js-cookie";
-import { Redirect } from "react-router-dom";
 import "./index.css";
 
 class Login extends Component {
@@ -38,6 +37,9 @@ class Login extends Component {
     const options = {
       method: "POST",
       body: JSON.stringify(userDetails),
+      headers: {
+        "Content-Type": "application/json",
+      },
     };
     const response = await fetch(apiUrl, options);
     const data = await response.json();
@@ -52,10 +54,6 @@ class Login extends Component {
   render() {
     const { username, password, showSubmitError, errorMsg } = this.state;
 
-    const token = Cookies.get("jwt_token");
-    if (token !== undefined) {
-      return <Redirect to="/" />;
-    }
     return (
       <div className="mobile-login-container">
         <p className="mobile-login-heading">Login</p>
